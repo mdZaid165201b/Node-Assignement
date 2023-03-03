@@ -91,18 +91,18 @@ app.get("/", (req, res) => {
 app.use("/api/user", userRoute);
 
 // --------------------Function for mongodb connection with Nodejs--------------------------------
-const connect = () => {
+const connectDB = async () => {
   try {
-    mongoose.set("strictQuery", false);
-    mongoose.connect(process.env.DB_CONNECTION_URI).then(() => {
-      console.log("Database Connected");
-      app.listen(PORT, () => {
-        console.log("Server is listening on port :" + PORT);
-      });
-    });
-  } catch (err) {
-    console.log(err.message);
+    const conn = await mongoose.connect(process.env.DB_CONNECTION_URI);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
   }
-};
+}
 
-connect();
+connectDB().then(() => {
+    app.listen(PORT, () => {
+        console.log("listening for requests");
+    })
+})
