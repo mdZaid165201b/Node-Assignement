@@ -95,7 +95,7 @@ const addContact = async (req, res, next) => {
     await contact.save();
 
     //res.redirect("home");
-    res.redirect("https://fine-plum-hermit-crab-hose.cyclic.app/home")
+    res.redirect('back');
   } catch (err) {
     res.status(500).json(err.message);
   }
