@@ -94,7 +94,7 @@ const addContact = async (req, res, next) => {
     );
     await contact.save();
 
-    res.redirect("/home");
+    res.redirect("home");
   } catch (err) {
     res.status(500).json(err.message);
   }
